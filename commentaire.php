@@ -37,6 +37,7 @@ $comments = $query->fetchall();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
     <header>
     <a href="index.php">Accueil</a>
@@ -54,9 +55,11 @@ $comments = $query->fetchall();
     </header>
 </head>
 <body>
-    <form action="commentaire.php" method="POST">
+    <form action="commentaire.php" method="POST" class="comment">
+                <h2><p>Ajoutez votre commentaire</p></h2>
                 <input type="text" id="create_comment" name="create_comment">
-                <button type="submit" name="create_comment_button" value="create_comment_button">Commenter</button>
+                <button type="submit" name="create_comment_button" value="create_comment_button" id="create_comment_button">Commenter</button>
     </form>
+    
 </body>
 </html>

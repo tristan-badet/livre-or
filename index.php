@@ -13,6 +13,7 @@ exit;
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>FFinally</title>
     <header>
     <a href="index.php">Accueil</a>
@@ -30,11 +31,10 @@ exit;
     </header>
 </head>
 <body>
-<section class=>
+<section class="informations">
     <h1>Bienvenue !</h1>
     <br>
     <p>Heureux de vous accueillir sur FFinally, endroit où se regroupent les fans de la licence Final Fantasy. Fais partager ta passion auprès des autres membres de la communauté</p>
-    <br>
     <p><em>- Les petits pampas</em></p>
     <p>
         N'hésitez pas à nous rejoindre sur les réseaux afin d'être au courant des dernières nouveautés !

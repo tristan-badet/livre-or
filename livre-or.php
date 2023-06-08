@@ -11,9 +11,9 @@ $error = "";
 $query = $bdd->prepare('SELECT * FROM comment ORDER BY date DESC');
 $query->execute();
 $comments = $query->fetchall();
-$query2 = $bdd->prepare('SELECT login FROM user JOIN comment ON user.id = comment.id_user');
+$query2 = $bdd->prepare('SELECT login FROM user JOIN comment ON user.id = comment.id_user ORDER BY comment.date DESC');
 $query2->execute();
-$username = $query2->fetchAll();
+$username = $query2->fetchAll(PDO::FETCH_COLUMN);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +21,7 @@ $username = $query2->fetchAll();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
     <header>
     <a href="index.php">Accueil</a>
@@ -40,14 +41,16 @@ $username = $query2->fetchAll();
 <body>
 <?php
 foreach ($comments as $index => $comment) {
-    $username = isset($username[$index]['login']) ? $username[$index]['login'] : '';
+    $actual_username = isset($username[$index]) ? $username[$index] : '';
     ?>
+    <section class="comment_section">
     <div>
-        <p>Posté par <?php echo $username . " le " . $comment['date']; ?></p>
+        <p><b>Posté par <?php echo $actual_username . " le " . $comment['date']; ?></b></p>
     </div>
     <div>
-        <p><?php echo $comment['comment']; ?></p>
+        <p class="comment_section_message"><?php echo $comment['comment']; ?></p>
     </div>
+    </section>
 <?php } ?>
 </body>
 </html>

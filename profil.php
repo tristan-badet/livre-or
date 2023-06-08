@@ -12,22 +12,53 @@ $bdd = new PDO ('mysql:host=localhost;dbname=livreor', 'root', '');
 
 $old_login = $_SESSION["login"];
 
-if (isset($_POST["nom_utilisateur"])){
-    $new_login = $_POST["nom_utilisateur"];
-    $_SESSION["login"] = $_POST["nom_utilisateur"];
+if (isset($_POST["user_name"])){
+    $new_login = $_POST["user_name"];
+    $_SESSION["login"] = $_POST["user_name"];
 } else {
     $new_login = $_SESSION["login"];
 }
+
+if (isset($_POST["password"])){
+    $password = $_POST["password"];
+}
+
+if(isset($_POST["password_confirmation"])){
+    $password_confirmation = $_POST["password_confirmation"];
+}
+
+
+
+if (isset($_POST["password"]) && isset($_POST["password_confirmation"])){
+    if ($_POST["password"] === $_POST["password_confirmation"]){
+        $password = $_POST["password"];
+        
+        $upper_case = preg_match('@[A-Z]@', $password);
+        $lower_case = preg_match('@[a-z]@', $password);
+        $number    = preg_match('@[0-9]@', $password);
+        $special_ch = preg_match('@[^\w]@', $password);
+            if (!$upper_case || !$lower_case || !$number || !$special_ch ||strlen($password) < 8){
+                $error = "Votre mot de passe ne correspond pas aux mesures de sécurité";
+            }else{
+                $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+            }
+     } else {
+        $error = "Vos mots de passes ne correspondent pas";
+     }
+    }
 
 
 
 
 
 if(isset($_POST["submit_bouton"])){
-    $requete = $bdd->prepare('UPDATE user SET login=?, password=? WHERE login=?');
-    $requete->execute([$new_login,  $old_login]);
-    header("refresh:1;index.php");
-    
+    $query = $bdd->prepare('UPDATE user SET login=? WHERE login=?');
+    $query->execute([$new_login,  $old_login]);
+        if(empty($error)){
+            $query2 = $bdd->prepare("UPDATE user SET password=? WHERE login=?");
+            $query2->execute([$password, $new_login]);
+            $message = "Votre mot de passe a bien été changé";
+        }
 }
 ?>
 
@@ -37,6 +68,7 @@ if(isset($_POST["submit_bouton"])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
     <header>
     <a href="index.php">Accueil</a>
@@ -55,18 +87,24 @@ if(isset($_POST["submit_bouton"])){
 </head>
 <body>
 <section>
-    <form action="profil.php" method="post">
+    <form method="post">
     <h1>Modification du Profil</h1>
     <div>
-        Nom d'utilisateur :<br> <input type="text" name="nom_utilisateur" id="nom_utilisateur" value="<?php echo $_SESSION["login"];?>">
+        Nom d'utilisateur :<br> <input type="text" name="user_name" id="user_name" value="<?php echo $_SESSION["login"];?>">
+    </div>
+    <div>
+        Changer de mot de passe :<br> <input type="password" name="password" id="password">
+    </div>
+    <div>
+        Confirmation du mot de passe : <br> <input type="password" name="password_confirmation" id="password_confirmation">
     </div>
     
     <div><?php 
         if (isset($_POST["submit_bouton"])){
-        if(empty($message_confirmation)){echo "";}else{echo $message_confirmation;}}
+        if(empty($message)){echo "";}else{echo $message;}}
         ?></div>
     <div>
-    <button type="submit" class="bouton_confirmer" name="submit_bouton" id="submit_bouton">Confirmer</button>
+    <button type="submit" name="submit_bouton" id="submit_bouton">Confirmer</button>
     </div>
 </form>
 </section>
