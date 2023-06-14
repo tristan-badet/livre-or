@@ -74,7 +74,7 @@ session_start();
 $database = new Database();
 $auth = new Auth($database);
 
-if (isset($_POST["login"])) {
+if (isset($_POST["bouton_confirmer"])) {
     $conn = $auth->login($_POST["login"], $_POST["password"]);
 }
 ?>
@@ -118,7 +118,7 @@ if (isset($_POST["login"])) {
                 ?>
             </div>
             <div>
-                <button type="submit" class="bouton_confirmer">Confirmer</button>
+                <button type="submit" class="bouton_confirmer" name="bouton_confirmer">Confirmer</button>
             </div>
             <div>
 
