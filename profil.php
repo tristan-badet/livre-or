@@ -7,7 +7,7 @@ header("location:connexion.php");
 exit;
 }
 
-$bdd = new PDO ('mysql:host=localhost;dbname=livreor', 'root', '');
+require 'database.php';
 
 
 $old_login = $_SESSION["login"];
@@ -86,7 +86,7 @@ if(isset($_POST["submit_bouton"])){
     </header>
 </head>
 <body>
-<section>
+<section class="informations">
     <form method="post">
     <h1>Modification du Profil</h1>
     <div>

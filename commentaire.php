@@ -6,7 +6,7 @@ session_destroy();
 header("location:connexion.php");
 exit;
 }
-$bdd = new PDO ('mysql:host=localhost;dbname=livreor', 'root', '');
+require 'database.php';
 $error = "";
 if (isset($_POST["create_comment"])){
     $comment = $_POST["create_comment"];
@@ -55,11 +55,13 @@ $comments = $query->fetchall();
     </header>
 </head>
 <body>
-    <form action="commentaire.php" method="POST" class="comment">
+    <section class="informations">
+    <form action="commentaire.php" method="POST">
                 <h2><p>Ajoutez votre commentaire</p></h2>
-                <input type="text" id="create_comment" name="create_comment">
+                <textarea type="text" id="create_comment" name="create_comment"></textarea>
+                <br>
                 <button type="submit" name="create_comment_button" value="create_comment_button" id="create_comment_button">Commenter</button>
     </form>
-    
+    </section>
 </body>
 </html>

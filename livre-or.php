@@ -6,7 +6,7 @@ session_destroy();
 header("location:connexion.php");
 exit;
 }
-$bdd = new PDO ('mysql:host=localhost;dbname=livreor', 'root', '');
+require 'database.php';
 $error = "";
 $query = $bdd->prepare('SELECT * FROM comment ORDER BY date DESC');
 $query->execute();
