@@ -3,7 +3,7 @@ session_start();
 if(isset($_POST['deconnect_button'])) {
 session_unset();
 session_destroy();
-header("location:connexion.php");
+header("location:template/connexion.php");
 exit;
 }
 ?>
@@ -17,16 +17,16 @@ exit;
     <title>FFinally</title>
     <header>
     <a href="index.php">Accueil</a>
-    <a href="livre-or.php">Livre d'or</a>
+    <a href="template/livre-or.php">Livre d'or</a>
     <?php if (isset($_SESSION["Connection"]) && $_SESSION["Connection"] == true) {?>
-            <a href="commentaire.php">Commentaire</a>
-            <a href="profil.php">Profil</a>
+            <a href="template/commentaire.php">Commentaire</a>
+            <a href="template/profil.php">Profil</a>
             <form method="post" action="index.php">
             <button type="submit" name="deconnect_button" value="deconnect_button">Déconnexion</button>
             </form>
             <?php } else { ?>
-                <a href="connexion.php">Connexion</a>
-            <a href="inscription.php">Inscription</a>
+                <a href="template/connexion.php">Connexion</a>
+            <a href="template/inscription.php">Inscription</a>
                 <?php } ?>
     </header>
 </head>
@@ -40,11 +40,11 @@ exit;
         N'hésitez pas à nous rejoindre sur les réseaux afin d'être au courant des dernières nouveautés !
     </p>
     <br>      
-        <img src="assets/facebook.png" alt="logo facebook"> 
-        <img src="assets/instagram.png" alt="logo instagram">  
-        <img src="assets/linkedin.png" alt="logo linkedin"> 
-        <img src="assets/twitter.png" alt="logo twitter">  
-        <img src="assets/youtube.png" alt="logo youtube">
+        <img src="template/assets/facebook.png" alt="logo facebook"> 
+        <img src="template/assets/instagram.png" alt="logo instagram">  
+        <img src="template/assets/linkedin.png" alt="logo linkedin"> 
+        <img src="template/assets/twitter.png" alt="logo twitter">  
+        <img src="template/assets/youtube.png" alt="logo youtube">
 </section>
 </body>
 </html>
